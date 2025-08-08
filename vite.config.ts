@@ -7,5 +7,11 @@ export default defineConfig({
     target: 'esnext',
     outDir: 'dist',
   },
-  base: './', // Важно для GitHub Pages!
+  base: './',
+  server: {
+    headers: {
+      // Принудительно устанавливаем правильные MIME-типы
+      "Content-Type": "application/javascript"
+    }
+  }
 })
