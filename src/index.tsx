@@ -2,7 +2,6 @@ import { render } from 'solid-js/web';
 import { onMount } from 'solid-js';
 import App from './App';
 import './index.css';
-import './fallback.css'; // Добавьте эту строку
 
 declare global {
   interface Window {
@@ -21,12 +20,7 @@ onMount(() => {
 const root = document.getElementById('root');
 
 if (root) {
-  // Добавьте fallback
-  root.innerHTML = '<div class="loading">Загрузка магазина...</div>';
-  
-  setTimeout(() => {
-    render(() => <App />, root);
-  }, 500);
+  render(() => <App />, root);
 } else {
-  console.error("Root element not found");
+  console.error("Root element #root not found");
 }
