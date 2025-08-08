@@ -4,15 +4,16 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Магазин бытовой химии</title>
+  <link rel="icon" href="/favicon.ico" />
   <script>
     // Перенаправление для GitHub Pages
-    if(location.pathname.includes('.github.io')) {
-      window.location.href = 'https://ku6ukpy6uk-hue.github.io/ku6ukpy6uk-hue.github.io/';
+    if(location.pathname.includes('.github.io') && !location.pathname.endsWith('/')) {
+      window.location.href = 'https://ku6ukpy6uk-hue.github.io/';
     }
   </script>
 </head>
 <body>
   <div id="root"></div>
-  <script type="module" src="./index.tsx"></script>
+  <script type="module" src="/src/index.tsx"></script>
 </body>
 </html>
