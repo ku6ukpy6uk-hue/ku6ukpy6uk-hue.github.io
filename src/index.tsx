@@ -1,25 +1,20 @@
-/* @refresh reload */
 import { render } from 'solid-js/web';
-import { retrieveLaunchParams } from '@telegram-apps/sdk-solid';
-
-import { Root } from '@/components/Root.js';
-import { init } from '@/init.js';
-
+import { onMount } from 'solid-js';
+import App from './App';
 import './index.css';
 
-// Mock the environment in case, we are outside Telegram.
-import './mockEnv.js';
-
-// Configure all application dependencies.
-init(retrieveLaunchParams().startParam === 'debug' || import.meta.env.DEV);
-
-const root = document.getElementById('root');
-
-if (import.meta.env.DEV && !(root instanceof HTMLElement)) {
-  throw new Error(
-    'Root element not found. Did you forget to add it to your index.html? Or maybe the id attribute got misspelled?',
-  );
+declare global {
+  interface Window {
+    Telegram: any;
+  }
 }
 
-render(() => (<Root/>), root!);
+onMount(() => {
+  if (window.Telegram?.WebApp) {
+    window.Telegram.WebApp.ready();
+    window.Telegram.WebApp.expand();
+    window.Telegram.WebApp.enableClosingConfirmation();
+  }
+});
 
+render(() => <App />, document.getElementById('root') as HTMLElement);
