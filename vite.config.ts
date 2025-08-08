@@ -5,7 +5,7 @@ export default defineConfig({
   plugins: [
     solidPlugin(), // Плагин для SolidJS
   ],
-  base: '/', // Для репозитория username.github.io используйте '/'
+  base: '/ku6ukpy6uk-hue.github.io/', // Для репозитория username.github.io используйте '/'
   build: {
     target: 'esnext', // Сборка под современные браузеры
     outDir: 'dist',   // Папка для сборки
