@@ -3,38 +3,35 @@ name: Deploy to GitHub Pages
 on:
   push:
     branches: [main]
+  workflow_dispatch:
 
 permissions:
   contents: write
 
 jobs:
-  build-deploy:
+  deploy:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
-      
+        
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: 20
-          cache: 'npm'
-      
+          node-version: '20'
+          
       - name: Install dependencies
         run: npm install
-      
+        
       - name: Build project
         run: npm run build
         
-      # Добавьте этот шаг для исправления MIME-типов
-      - name: Fix MIME types
-        run: |
-          find dist -type f -name "*.js" -exec sh -c 'mv "$1" "${1%.js}.mjs"' _ {} \;
-          find dist -type f -name "*.ts" -exec sh -c 'mv "$1" "${1%.ts}.mts"' _ {} \;
-          find dist -type f -name "*.tsx" -exec sh -c 'mv "$1" "${1%.tsx}.mtsx"' _ {} \;
-      
+      - name: Add .nojekyll
+        run: touch ./dist/.nojekyll
+        
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: ./dist
+          force_orphan: true
