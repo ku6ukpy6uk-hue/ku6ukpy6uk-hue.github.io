@@ -7,5 +7,5 @@ export default defineConfig({
     target: 'esnext',
     outDir: 'dist',
   },
-  base: './', // Добавьте эту строку
+  base: './', // Важно для GitHub Pages!
 })
