@@ -17,4 +17,10 @@ onMount(() => {
   }
 });
 
-render(() => <App />, document.getElementById('root') as HTMLElement);
+const root = document.getElementById('root');
+
+if (root) {
+  render(() => <App />, root);
+} else {
+  console.error("Root element not found");
+}
