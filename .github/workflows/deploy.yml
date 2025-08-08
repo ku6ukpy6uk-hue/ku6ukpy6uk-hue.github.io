@@ -2,8 +2,7 @@ name: Deploy to GitHub Pages
 
 on:
   push:
-    branches: [main]  # Запускать при пуше в ветку main
-  workflow_dispatch:  # Разрешить ручной запуск
+    branches: [main]
 
 permissions:
   contents: write
@@ -26,6 +25,13 @@ jobs:
       
       - name: Build project
         run: npm run build
+        
+      # Добавьте этот шаг для исправления MIME-типов
+      - name: Fix MIME types
+        run: |
+          find dist -type f -name "*.js" -exec sh -c 'mv "$1" "${1%.js}.mjs"' _ {} \;
+          find dist -type f -name "*.ts" -exec sh -c 'mv "$1" "${1%.ts}.mts"' _ {} \;
+          find dist -type f -name "*.tsx" -exec sh -c 'mv "$1" "${1%.tsx}.mtsx"' _ {} \;
       
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
